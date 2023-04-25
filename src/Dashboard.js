@@ -20,6 +20,7 @@ import { drawerWidth, AppBar, Drawer, mdTheme } from './dashboard/estilos'
 
 import Home from './dashboard/Home';
 import Cadastro from './imovel/Cadastro';
+import ListarImovel from './imovel/Listar';
 
 
 function DashboardContent(attr) {
@@ -114,8 +115,8 @@ function DashboardContent(attr) {
 export default function Dashboard() {
 
     // router
-    if (window.location.pathname == '/cadastro') {
-        return <DashboardContent pagina={<Cadastro />} />;
+    if (window.location.pathname == '/imovel') {
+        return <DashboardContent pagina={<ListarImovel />} />;
     } else {
         return <DashboardContent pagina={<Home />} />;
     }
