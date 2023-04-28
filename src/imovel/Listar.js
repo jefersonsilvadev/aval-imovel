@@ -117,6 +117,10 @@ export default function Listar()
 
                     <TableBody>
                         { imoveis.map(function(item) {
+                            
+                            // Link dinâmico baseado no ID
+                            const link = '/imoveis/editar/' + item.id;
+
                             return (
                         <TableRow key={ item.codigo }>
                             <TableCell>{ item.codigo }</TableCell>
@@ -125,7 +129,7 @@ export default function Listar()
                             <TableCell>{  item.data_cadastro.toDate().toLocaleString()  }</TableCell>
                             <TableCell> 
                                 <IconButton onClick={ () => { deletar(item.id) }}><DeleteIcon /></IconButton>
-                                <IconButton href='/imoveis/editar/asdada' > <EditIcon /> </IconButton>
+                                <IconButton href={link} > <EditIcon /> </IconButton>
                             </TableCell>
                         </TableRow>
                             )

@@ -22,9 +22,11 @@ import ReactDOM from "react-dom/client";
 import {
     createBrowserRouter,
     RouterProvider,
-  } from "react-router-dom";
-  
+} from "react-router-dom";
+
 import paginas from './rotas';
+
+import Login from './Login';
 
 
 function DashboardContent(attr) {
@@ -118,6 +120,12 @@ function DashboardContent(attr) {
 
 export default function Dashboard() {
 
-    return <DashboardContent />;
+    const [logado, setLogado] = React.useState(false);
+
+    if (logado == true) {
+        return <DashboardContent />;
+    } else {
+        return <Login />
+    }
 
 }
