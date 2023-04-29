@@ -12,10 +12,42 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Alert from '@mui/material/Alert'
+
+import { app } from './firebase'
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const theme = createTheme();
 
-export default function Login() {
+export default function Login(props) {
+    const [email, setEmail] = React.useState("");
+    const [senha, setSenha] = React.useState("");
+    const [msgErro, setMsgErro] = React.useState("");
+
+    async function logar() {
+        try {
+            const auth = getAuth(app)
+            const resposta = await signInWithEmailAndPassword(auth, email, senha);
+
+            props.status('true');
+            window.sessionStorage.setItem("logado", true);
+
+            console.log(resposta);
+        } catch (erro) {
+            const tipoErro = erro.code;
+
+            if (tipoErro == "auth/missing-password") {
+                setMsgErro("A senha esta em branco");
+            } else if (tipoErro == "auth/invalid-email") {
+                setMsgErro("Email inválido")
+            } else if (tipoErro == "auth/user-not-found") {
+                setMsgErro("Usuario ou Senha incorretos");
+            }
+
+        }
+
+    }
+
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -34,6 +66,9 @@ export default function Login() {
                     <Typography component="h1" variant="h5">
                         Entrar no Sistema
                     </Typography>
+
+                    {(msgErro.length > 0) ? <Alert severity="error">{msgErro}</Alert> : ""}
+
                     <Box component="form" noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
@@ -44,6 +79,7 @@ export default function Login() {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            onChange={(evento) => { setEmail(evento.target.value) }}
                         />
                         <TextField
                             margin="normal"
@@ -54,10 +90,12 @@ export default function Login() {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            onChange={(evento) => { setSenha(evento.target.value) }}
                         />
 
                         <Button
-                            type="submit"
+
+                            onClick={logar}
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}

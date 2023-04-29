@@ -18,24 +18,28 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemText primary="Painel" />
         </ListItemButton>
+
         <ListItemButton href="/imoveis">
             <ListItemIcon>
                 <ShoppingCartIcon />
             </ListItemIcon>
             <ListItemText primary="Imoveis Cadastrados" />
         </ListItemButton>
+
         <ListItemButton>
             <ListItemIcon>
                 <PeopleIcon />
             </ListItemIcon>
             <ListItemText primary="Ficha de Avaliação" />
         </ListItemButton>
+
         <ListItemButton>
             <ListItemIcon>
                 <BarChartIcon />
             </ListItemIcon>
             <ListItemText primary="Relatorios" />
         </ListItemButton>
+        
         <ListItemButton>
             <ListItemIcon>
                 <LayersIcon />
